@@ -1,0 +1,106 @@
+var express = require('express');
+var router = express.Router();
+var Article = require('../model/article');
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.send("list");
+});
+
+router.post('/add',function(req,res,next){
+//添加文章
+  var postData = {
+    title:req.body.title,
+    createTime:req.body.createTime,
+    content:req.body.content,
+    imageUrl:req.body.imageUrl,
+    isDeleted:req.body.isDeleted,
+    isPublished:req.body.isPublished,
+    tags:req.body.tag
+  }
+  console.log(postData);
+  Article.create(postData,function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        error:err
+      });
+    }
+    else {
+      res.send({
+        code:1,
+        result:data._id
+      })
+    }
+  })
+});
+router.get('/queryAll',function(req,res,next){
+ //文章列表
+  Article.find({},function(err,data){
+    if(err==null) {
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+
+router.post('/querySingle',function(req,res,next){
+  //根据ID查询指定的文章列表
+  Article.find({_id:req.body.id},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+router.post('/update',function(req,res,next){
+  //更新
+  Article.update({_id:req.body._id},{title:"",content:""},function(err,data){
+    if(err){
+      res.send({
+        code:0,
+        error:err
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        result:data
+      })
+    }
+  })
+})
+router.post('/delete',function(req,res,next){
+  //删除文章
+  Article.update({_id:req.body.id},{isDeleted:'1'},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+module.exports = router;
