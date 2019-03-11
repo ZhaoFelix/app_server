@@ -11,6 +11,15 @@
       v-model='blogImageUrl'
       class="image-input"
       ></el-input>
+      <el-row class="my-row">
+        <el-col :span="3">请选择前端cell的类型：</el-col>
+        <el-col :span="4">
+          <el-radio v-model="radio" label="1">大图</el-radio>
+          <el-radio v-model="radio" label="2">小图</el-radio>
+          <el-radio v-model="radio" label="3">无图</el-radio>
+        </el-col>
+        <el-col :span="17"></el-col>
+     </el-row>
       <mavon-editor  :toolbars="toolbars" class="my-editor" v-model="content" style="max-height:700px"/>
       <div class="tags">
           <el-tag class="my-tag"
@@ -62,31 +71,69 @@ export default {
         tagArr:[],
         inx:-1,
         tags:[],
-        selectedTags:[]
+        selectedTags:[],
+        radio:"0"
     }
   },
   methods:{
     submit(){
+      const id = this.$route.params.id;
       const _this = this;
-      if(this.blogTitle && this.blogImageUrl && this.content){
-          //文章添加
+      console.log(this.radio);
+      if(this.blogTitle && this.blogImageUrl && this.content && this.radio){
+
       var tagStr = '';
       for (var i=0;i<this.selectedTags.length;i++) {
           tagStr += this.selectedTags[i]+" ";
       }
+      //更新文章
+      if(id!=0){
+        console.log(id);
+        this.$axios.post('http://localhost:3000/list/update',qs.stringify({
+          _id:id,
+          title:this.blogTitle,
+          content:this.content,
+          imageUrl:this.blogImageUrl,
+          tag:tagStr,
+          cellType:this.radio
+        }))
+        .then(function(response){
+          var re = response.data;
+          console.log(re.code);
+          if(re.code==0){
+            _this.$message({
+              message:'更新成功',
+              type:'success'
+            })
+            _this.$router.push({path:`/preview/${id}`})
+          }
+          else {
+
+          }
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+
+        return;
+      }
+
+        //文章添加
       this.$axios.post('http://localhost:3000/list/add',qs.stringify({
         title:this.blogTitle,
         content:this.content,
         imageUrl:this.blogImageUrl,
-        tag:tagStr
+        tag:tagStr,
+        cellType:this.radio,
       }))
       .then(function(response){
         var re = response.data;
         if(re.code==0){
-          this.$message({
+          _this.$message({
             message:'添加成功',
             type:'success'
           })
+
         }
         else {
 
@@ -108,8 +155,8 @@ export default {
     },
     clickSelected(index,tag){
       this.inx = index;
-      if(this.tagArr.length>=3){
-        this.$alert('最多只能选择三个标签','提示',{
+      if(this.tagArr.length>=1){
+        this.$alert('最多只能选择一个标签','提示',{
           confirmButtonText:'确定',
           callback:action=>{
             //点击确定时调用
@@ -208,5 +255,8 @@ export default {
 }
 .tags{
   text-align: left
+}
+.my-row{
+  margin-top: 20px;
 }
 </style>

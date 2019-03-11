@@ -4,7 +4,7 @@
      <mavon-editor
       class="my-editor"
       v-model="content"
-      style="max-height:700px"
+      style="height:812px;"
       defaultOpen = "preview"
       :ishljs="true"
       :scrollStyle="false"
@@ -77,6 +77,7 @@ export default {
   /* border: 1px solid gray; */
   margin: 10px auto;
 }
+
 .header {
   width: 100%;
   height: 25%;

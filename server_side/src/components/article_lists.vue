@@ -30,6 +30,7 @@
     </el-table-column>
     <el-table-column
       prop="imageUrl"
+      width="500"
       label="图片">
     </el-table-column>
     <el-table-column
@@ -37,12 +38,17 @@
       label="标签">
     </el-table-column>
     <el-table-column
+      prop="cellType"
+      label="cell类型">
+    </el-table-column>
+    <el-table-column
       fixed="right"
       label="操作"
-      width="130">
+      width="170">
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">预览</el-button>
         <el-button type="text" size="small" @click="editArticle(scope.row)">编辑</el-button>
+        <el-button type="text" size="small" @click="publishArticle(scope.row)">发布</el-button>
         <el-button type="text" size="small" @click="deleteArticle(scope.row)">删除</el-button>
       </template>
     </el-table-column>
@@ -100,14 +106,53 @@ export default {
                 })
               }
               else {
-
               }
           })
           .catch(function(err){
-
           })
         })
-
+      },
+      publishArticle(row){
+        const id = row._id;
+        var _this = this;
+        if(row.isDeleted==1){
+          this.$message({
+            message:"删除的文章无法被发布！",
+            type:'error'
+          })
+          return;
+        }
+        else if(row.isPublished==1){
+          this.$message({
+            message:"请不要重复发布！",
+            type:'error'
+          })
+          return;
+        }
+        this.$confirm('发布前请先进行预览','发布',{
+          confirmButtonText:'确定',
+          cancleButtonText:'取消',
+          type:'warning'
+        }).then(()=> {
+          this.$axios.post('http://localhost:3000/list/publish',qs.stringify({
+            id:id
+          }))
+          .then(function(response){
+            var re = response.data;
+            if(re.code==0){
+              _this.$message({
+                message:"发布成功",
+                type:'success'
+              })
+            }
+            else {
+              _this.$message({
+                message:"发布失败",
+                type:'error'
+              })
+            }
+          })
+        })
       }
     },
     created:function(){

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Article = require('../model/article');
-
+var Article  = require('../model/article');
+var sd = require('silly-datetime');
+var time=sd.format(new Date(), 'YYYY-MM-DD');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.send("list");
@@ -11,12 +12,13 @@ router.post('/add',function(req,res,next){
 //添加文章
   var postData = {
     title:req.body.title,
-    createTime:req.body.createTime,
+    createTime:this.time,
     content:req.body.content,
     imageUrl:req.body.imageUrl,
     isDeleted:req.body.isDeleted,
     isPublished:req.body.isPublished,
-    tags:req.body.tag
+    tags:req.body.tag,
+    cellType:req.body.cellType
   }
   console.log(postData);
   Article.create(postData,function(err,data){
@@ -70,9 +72,21 @@ router.post('/querySingle',function(req,res,next){
   })
 })
 router.post('/update',function(req,res,next){
+    var postData = {
+      title:req.body.title,
+      createTime:time,
+      content:req.body.content,
+      imageUrl:req.body.imageUrl,
+      isDeleted:0,
+      isPublished:0,
+      tags:req.body.tag,
+      cellType:req.body.cellType
+    }
+   console.log(req.body._id);
+
   //更新
-  Article.update({_id:req.body._id},{title:"",content:""},function(err,data){
-    if(err){
+  Article.update({_id:req.body._id},postData,function(err,data){
+    if(err==null){
       res.send({
         code:0,
         error:err
@@ -89,6 +103,23 @@ router.post('/update',function(req,res,next){
 router.post('/delete',function(req,res,next){
   //删除文章
   Article.update({_id:req.body.id},{isDeleted:'1'},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+router.post('/publish',function(req,res,next){
+  //删除文章
+  Article.update({_id:req.body.id},{isPublished:'1'},function(err,data){
     if(err==null){
       res.send({
         code:0,

@@ -25,6 +25,9 @@ var articleSchema = new Schema({
   },
   tags:{
     type:String
+  },
+  cellType:{
+    type:String
   }
 })
 module.exports = mongoose.model('article_lists',articleSchema);

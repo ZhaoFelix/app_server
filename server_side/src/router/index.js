@@ -5,6 +5,7 @@ import lists from '@/components/article_lists.vue'
 import add from '@/components/add_article.vue'
 import preview from '@/components/preview'
 import tag  from '@/components/tag'
+import recommand from '@/components/recommand'
 
 Vue.use(Router)
 export default new Router({
@@ -36,6 +37,11 @@ export default new Router({
       path:'/tag',
       name:'tag',
       component:tag
+    },
+    {
+      path:'/recommand',
+      name:'recommand',
+      component:recommand
     }
   ]
 })

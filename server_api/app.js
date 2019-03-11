@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var listRouter = require('./routes/list'); //文章
 var tagsRouter = require('./routes/other');
+var recommandRouter = require('./routes/recommand');
 var app = express();
 mongoose.connect('mongodb://localhost:27017/blog',{
   useNewUrlParser:true
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/list',listRouter);
 app.use('/other',tagsRouter);
+app.use('/recommand',recommandRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
