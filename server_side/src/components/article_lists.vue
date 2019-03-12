@@ -18,6 +18,11 @@
       width="180">
     </el-table-column>
     <el-table-column
+      prop="preview"
+      label="文章简介"
+      width="180">
+    </el-table-column>
+    <el-table-column
       prop="isDeleted"
       label="是否被删除"
       width="100"
@@ -88,7 +93,7 @@ export default {
           cancleButtonText:'取消',
           type:'warning'
         }).then(()=>{
-          this.$axios.post('http://localhost:3000/list/delete',qs.stringify({
+          this.$axios.post('http://www.bedeveloper.cn:3000/list/delete',qs.stringify({
             id:id
           }))
           .then(function(response){
@@ -134,7 +139,7 @@ export default {
           cancleButtonText:'取消',
           type:'warning'
         }).then(()=> {
-          this.$axios.post('http://localhost:3000/list/publish',qs.stringify({
+          this.$axios.post('http://www.bedeveloper.cn:3000/list/publish',qs.stringify({
             id:id
           }))
           .then(function(response){
@@ -157,7 +162,7 @@ export default {
     },
     created:function(){
       var _this = this;
-      this.$axios.get('http://localhost:3000/list/queryAll')
+      this.$axios.get('http://www.bedeveloper.cn:3000/list/queryAll')
       .then(function(response){
         var re = response.data;
         if(re.code==0){

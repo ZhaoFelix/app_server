@@ -60,7 +60,7 @@ export default {
         cancelButtonText: '取消',
       }).then(({ value }) => {
         if(value!=null){
-          this.$axios.post('http://localhost:3000/recommand/add',qs.stringify({
+          this.$axios.post('http://www.bedeveloper.cn:3000/recommand/add',qs.stringify({
             url:value,
           }))
           .then(function(response){
@@ -128,7 +128,7 @@ export default {
     },
     updateDB(ix,id){
       const _this = this;
-      this.$axios.post('http://localhost:3000/recommand/update',qs.stringify({
+      this.$axios.post('http://www.bedeveloper.cn:3000/recommand/update',qs.stringify({
         tag:ix,
         id:id
       }))
@@ -152,7 +152,7 @@ export default {
   },
   created:function(){
       const _this = this;
-      this.$axios.get('http://localhost:3000/recommand/query')
+      this.$axios.get('http://www.bedeveloper.cn:3000/recommand/query')
       .then(function(response){
         var re = response.data;
         if(re.code==0){

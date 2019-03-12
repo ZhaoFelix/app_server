@@ -8,7 +8,7 @@ import tag  from '@/components/tag'
 import recommand from '@/components/recommand'
 
 Vue.use(Router)
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: '/',
@@ -45,3 +45,11 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to,form,next)=>{
+  if(to.meta.title){
+    document.title = to.meta.title
+  }
+  next();
+})
+export default router

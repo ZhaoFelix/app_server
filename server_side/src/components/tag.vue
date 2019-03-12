@@ -50,7 +50,7 @@ export default {
        type:'warning'
      }).then(()=>{
 
-        this.$axios.post("http://localhost:3000/other/tag/delete",qs.stringify({
+        this.$axios.post("http://www.bedeveloper.cn:3000/other/tag/delete",qs.stringify({
           id:tag.id
         }))
         .then(function(response){
@@ -78,7 +78,7 @@ export default {
      let inputValue = this.inputValue;
      var _this = this;
      if(inputValue){
-       this.$axios.post('http://localhost:3000/other/tag/insert',qs.stringify({
+       this.$axios.post('http://www.bedeveloper.cn:3000/other/tag/insert',qs.stringify({
          name:inputValue
        }))
        .then(function(response){
@@ -104,7 +104,7 @@ export default {
  },
  created:function(){
    var _this = this;
-   this.$axios.get('http://localhost:3000/other/tag/query')
+   this.$axios.get('http://www.bedeveloper.cn:3000/other/tag/query')
    .then(function(response){
      var re = response.data;
      if(re.code==0){

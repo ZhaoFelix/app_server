@@ -18,7 +18,8 @@ router.post('/add',function(req,res,next){
     isDeleted:req.body.isDeleted,
     isPublished:req.body.isPublished,
     tags:req.body.tag,
-    cellType:req.body.cellType
+    cellType:req.body.cellType,
+    preview:req.body.preview
   }
   console.log(postData);
   Article.create(postData,function(err,data){
@@ -80,7 +81,8 @@ router.post('/update',function(req,res,next){
       isDeleted:0,
       isPublished:0,
       tags:req.body.tag,
-      cellType:req.body.cellType
+      cellType:req.body.cellType,
+      preview:req.body.preview,
     }
    console.log(req.body._id);
 

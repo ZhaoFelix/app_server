@@ -28,6 +28,10 @@ var articleSchema = new Schema({
   },
   cellType:{
     type:String
+  },
+  //简介
+  preview:{
+    type:String
   }
 })
 module.exports = mongoose.model('article_lists',articleSchema);
