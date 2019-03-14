@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/preview/:id',
+      path: '/:id',
       name: 'index',
       component: Index
     }
