@@ -20,31 +20,35 @@
     <el-table-column
       prop="preview"
       label="文章简介"
-      width="180">
+      width="680">
     </el-table-column>
     <el-table-column
       prop="isDeleted"
       label="是否被删除"
-      width="100"
+      width="40"
       >
     </el-table-column>
     <el-table-column
       prop="isPublished"
-      width="80"
+      width="40"
       label="是否发布">
     </el-table-column>
     <el-table-column
       prop="imageUrl"
-      width="500"
+      width="200"
       label="图片">
     </el-table-column>
     <el-table-column
       prop="tags"
-      label="标签">
+      label="标签"
+      width="100"
+      >
     </el-table-column>
     <el-table-column
       prop="cellType"
-      label="cell类型">
+      label="cell类型"
+      width="40"
+      >
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -59,9 +63,12 @@
     </el-table-column>
   </el-table>
   <el-pagination
+  background
   layout="prev, pager, next"
-  :total="10"
+  :total="totalPage"
   class="my-pagination"
+  :page-sizes = "[7,14,21,28,35,42,47,56,63,70]"
+  @current-change="handleCurrentChange"
   >
 
   </el-pagination>
@@ -73,7 +80,8 @@ import qs from 'qs'
 export default {
   data() {
       return {
-        tableData3: []
+        tableData3: [],
+        totalPage:0
       }
     },
     methods:{
@@ -158,11 +166,16 @@ export default {
             }
           })
         })
+      },
+      handleCurrentChange(){
+
       }
     },
     created:function(){
       var _this = this;
-      this.$axios.get('http://www.bedeveloper.cn:3000/list/queryAll')
+      this.$axios.post('http://www.bedeveloper.cn:3000/list/queryAll',qs.stringify({
+         page:0
+      }))
       .then(function(response){
         var re = response.data;
         if(re.code==0){
@@ -173,6 +186,16 @@ export default {
         }
         else {
 
+        }
+      })
+      .catch(function(err){
+      })
+
+      this.$axios.get('http://sbs.bedeveloper.cn:3000/list/queryCount')
+      .then(function(respose){
+        var re = respose.data;
+        if(re.code==0){
+          _this.totalPage = re.count
         }
       })
       .catch(function(err){

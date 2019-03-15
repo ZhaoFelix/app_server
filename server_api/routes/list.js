@@ -54,8 +54,8 @@ router.post('/queryAll',function(req,res,next){
       })
     }
   })
-  .limit(5)
-  .skip(page*5)
+  .limit(10)
+  .skip(page*10)
   .sort({'createTime':1})
 })
 
@@ -68,7 +68,24 @@ router.get('/queryCount',function(req,res,next){
     })
   })
 })
-
+router.post('/queryByTag',function(req,res,next){
+   const
+   tag = req.body.tag;
+   Article.find({tags:tag+" "},function(err,data){
+     if(err==null){
+       res.send({
+         code:0,
+         result:data
+       })
+     }
+     else {
+       res.send({
+         code:1,
+         error:err
+       })
+     }
+   })
+})
 router.post('/querySingle',function(req,res,next){
   //根据ID查询指定的文章列表
   Article.find({_id:req.body.id},function(err,data){
