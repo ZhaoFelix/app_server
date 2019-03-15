@@ -37,10 +37,9 @@ router.post('/add',function(req,res,next){
     }
   })
 });
-router.get('/queryAll',function(req,res,next){
+router.post('/queryAll',function(req,res,next){
  //文章列表
- // var page = req.body.page;
- var page = 0
+ var page = req.body.page;
   Article.find({},function(err,data){
     if(err==null) {
       res.send({
