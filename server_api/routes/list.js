@@ -39,6 +39,8 @@ router.post('/add',function(req,res,next){
 });
 router.get('/queryAll',function(req,res,next){
  //文章列表
+ // var page = req.body.page;
+ var page = 0
   Article.find({},function(err,data){
     if(err==null) {
       res.send({
@@ -52,6 +54,19 @@ router.get('/queryAll',function(req,res,next){
         error:err
       })
     }
+  })
+  .limit(5)
+  .skip(page*5)
+  .sort({'createTime':1})
+})
+
+router.get('/queryCount',function(req,res,next){
+  Article.where({}).countDocuments(function(err,count){
+    if(err) return handleError(err);
+    res.send({
+      code:0,
+      count:count
+    })
   })
 })
 
