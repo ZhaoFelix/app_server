@@ -35,7 +35,9 @@ smartypants: false
 export default {
   data(){
     return {
-      toolbars:{},
+      toolbars:{
+
+      },
       content:``
     }
   },
@@ -78,12 +80,5 @@ export default {
   margin: 10px auto;
 }
 
-.header {
-  width: 100%;
-  height: 25%;
-}
-.header img {
-  width: 100%;
-  height: 100%;
-}
+
 </style>
