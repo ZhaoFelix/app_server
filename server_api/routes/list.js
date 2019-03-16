@@ -69,8 +69,8 @@ router.get('/queryCount',function(req,res,next){
   })
 })
 router.post('/queryByTag',function(req,res,next){
-   const
-   tag = req.body.tag;
+   const tag = req.body.tag;
+   const page = req.body.page;
    Article.find({tags:tag+" "},function(err,data){
      if(err==null){
        res.send({
@@ -85,6 +85,9 @@ router.post('/queryByTag',function(req,res,next){
        })
      }
    })
+   .limit(8)
+   .skip(page*8)
+   .sort({'createTime':1})
 })
 router.post('/querySingle',function(req,res,next){
   //根据ID查询指定的文章列表
