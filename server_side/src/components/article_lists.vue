@@ -24,14 +24,14 @@
     </el-table-column>
     <el-table-column
       prop="isDeleted"
-      label="是否被删除"
+      label="删除"
       width="40"
       >
     </el-table-column>
     <el-table-column
       prop="isPublished"
       width="40"
-      label="是否发布">
+      label="发布">
     </el-table-column>
     <el-table-column
       prop="imageUrl"
@@ -67,8 +67,8 @@
   layout="prev, pager, next"
   :total="totalPage"
   class="my-pagination"
-  :page-sizes = "[7,14,21,28,35,42,47,56,63,70]"
   @current-change="handleCurrentChange"
+  :page-size="8"
   >
 
   </el-pagination>
@@ -81,7 +81,7 @@ export default {
   data() {
       return {
         tableData3: [],
-        totalPage:0
+        totalPage:10
       }
     },
     methods:{
@@ -167,8 +167,26 @@ export default {
           })
         })
       },
-      handleCurrentChange(){
+      handleCurrentChange(page){
+        var _this = this;
+        this.$axios.post('http://www.bedeveloper.cn:3000/list/queryAll',qs.stringify({
+           page:page-1
+        }))
+        .then(function(response){
+          var re = response.data;
+          if(re.code==0){
+            _this.tableData3 = []
+            for (var index  in re.result) {
+              const data = re.result[index]
+              _this.tableData3.push(data)
+            }
+          }
+          else {
 
+          }
+        })
+        .catch(function(err){
+        })
       }
     },
     created:function(){
@@ -179,6 +197,7 @@ export default {
       .then(function(response){
         var re = response.data;
         if(re.code==0){
+          _this.tableData3 = []
           for (var index  in re.result) {
             const data = re.result[index]
             _this.tableData3.push(data)
@@ -195,6 +214,7 @@ export default {
       .then(function(respose){
         var re = respose.data;
         if(re.code==0){
+
           _this.totalPage = re.count
         }
       })
@@ -208,9 +228,11 @@ export default {
 <style lang="css">
 .main {
   width: 100%;
+  margin-left: 200px;
+
 }
 .my-pagination {
-  bottom: 40px;
+  bottom: 200px;
   position: relative;
 }
 </style>

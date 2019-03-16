@@ -229,7 +229,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .main {
   width: 100%;
   height: 900px;

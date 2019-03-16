@@ -135,4 +135,7 @@ export default {
     margin-left: 10px;
     vertical-align: bottom;
 }
+.content {
+  margin-left: 200px;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-title data-title="管理">
-  <el-container style="height: 900px; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+  <el-container style="height: 800px; border: 1px solid #eee">
+    <el-aside width="200px">
       <el-menu :default-openeds="['1']" >
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-menu"></i>导航目录</template>
@@ -59,6 +59,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+body {
+  margin: 0px;
+}
+.el-aside {
+  position: fixed;
+  z-index: 2;
+  height: 800px;
+  background-color: white;
+}
+.el-menu {
+  border: none;
 }
 </style>
