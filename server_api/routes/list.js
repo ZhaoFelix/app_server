@@ -54,8 +54,8 @@ router.post('/queryAll',function(req,res,next){
       })
     }
   })
-  .limit(10)
-  .skip(page*10)
+  .limit(8)
+  .skip(page*8)
   .sort({'createTime':1})
 })
 
