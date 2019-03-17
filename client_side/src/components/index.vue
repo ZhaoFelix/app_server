@@ -8,7 +8,7 @@
         :ishljs="true"
         :scrollStyle="false"
         :subfield = "false"
-        codeStyle="dark"
+        codeStyle="vs"
         :toolbarsFlag="false"
         />
      </el-row>
