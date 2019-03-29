@@ -55,6 +55,11 @@ export default {
 <style lang="css">
 .my-container {
   width: 100%;
-
+}
+#app .v-show-content{
+  padding: 6px 10px;
+}
+#app .markdown-body pre {
+  padding: 4px;
 }
 </style>
