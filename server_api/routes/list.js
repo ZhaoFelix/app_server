@@ -56,7 +56,7 @@ router.post('/queryAll',function(req,res,next){
   })
   .limit(8)
   .skip(page*8)
-  .sort({'createTime':1})
+  .sort({'createTime':-1})
 })
 
 router.get('/queryCount',function(req,res,next){
@@ -87,7 +87,7 @@ router.post('/queryByTag',function(req,res,next){
    })
    .limit(8)
    .skip(page*8)
-   .sort({'createTime':1})
+   .sort({'createTime':-1})
 })
 router.post('/querySingle',function(req,res,next){
   //根据ID查询指定的文章列表
