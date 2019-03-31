@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Tag = require('../model/tags');
 var Like = require('../model/like');
+var Collect = require('../model/collect');
+var Article  = require('../model/article');
 router.post('/tag/insert',function(req,res,next){
   var postData = {
     name:req.body.name
@@ -78,12 +80,90 @@ router.post('/like/liked',function(req,res,next){
   })
 })
 
+router.post('/collect/collected',function(req,res,next){
+  var postData = {
+    article_id:req.body.article_id,
+    device_id:req.body.device_id,
+    collect:"1"
+  }
+  console.log(postData)
+  Collect.create(postData,function(err,data){
+     if(err==null){
+        res.send({
+          code:0,
+          result:data._id
+        })
+     }
+     else{
+       res.send({
+         code:1,
+         error:err
+       })
+     }
+  })
+})
+router.post('/collect/query',function(req,res,next){
+  var postData = {
+    device_id:req.body.device_id,
+    collect:"1"
+  }
+ var sendData = []
+  Collect.find(postData,function(err,data){
+     if(err==null){
+       for(var i=0;i<data.length;i++) {
+         var _id = data[i].article_id
+       Article.find({_id:_id},function(err,data){
+         if(err==null){
+           // res.send({
+           //   code:0,
+           //   result:data
+           // })
+         }
+         else {
+           res.send({
+             code:1,
+             error:err
+           })
+         }
+       })
+     }
+     }
+     else{
+       res.send({
+         code:1,
+         error:err
+       })
+     }
+  })
+})
+
 router.post('/like/disliked',function(req,res,next){
   var postData = {
     article_id:req.body.article_id,
     device_id:req.body.device_id,
   }
   Like.update(postData,{like:"0"},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+
+router.post('/collect/discollected',function(req,res,next){
+  var postData = {
+    article_id:req.body.article_id,
+    device_id:req.body.device_id,
+  }
+  Collect.update(postData,{collect:"0"},function(err,data){
     if(err==null){
       res.send({
         code:0,
