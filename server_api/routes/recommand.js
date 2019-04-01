@@ -54,7 +54,7 @@ router.post('/update',function(req,res,next){
 
 //查询
 router.get('/query',function(req,res,next){
-  Recommand.find({isDeleted:"0"},function(err,data){
+  Recommand.find({isDeleted:"0",isRecommand:"1"},function(err,data){
     if(err==null){
       res.send({
         code:0,
