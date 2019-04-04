@@ -41,7 +41,7 @@ router.get("/queryByArticleId",function(req,res,next){
   })
   .limit(8)
 })
-router.get("/queryComment",function(req,res,next){
+router.post("/queryComment",function(req,res,next){
   var article_id = req.body.article_id
   Comment.find({article_id:article_id},function(err,data){
     if(err==null){
