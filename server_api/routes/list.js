@@ -12,7 +12,6 @@ router.post('/add',function(req,res,next){
 //添加文章
   var postData = {
     title:req.body.title,
-    createTime:this.time,
     content:req.body.content,
     imageUrl:req.body.imageUrl,
     isDeleted:req.body.isDeleted,
@@ -109,7 +108,6 @@ router.post('/querySingle',function(req,res,next){
 router.post('/update',function(req,res,next){
     var postData = {
       title:req.body.title,
-      createTime:time,
       content:req.body.content,
       imageUrl:req.body.imageUrl,
       isDeleted:0,
