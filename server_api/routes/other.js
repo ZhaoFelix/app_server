@@ -4,6 +4,7 @@ var Tag = require('../model/tags');
 var Like = require('../model/like');
 var Collect = require('../model/collect');
 var Article  = require('../model/article');
+var mongoose = require('mongoose');
 router.post('/tag/insert',function(req,res,next){
   var postData = {
     name:req.body.name
@@ -102,6 +103,7 @@ router.post('/collect/collected',function(req,res,next){
      }
   })
 })
+
 router.post('/collect/query',function(req,res,next){
   var postData = {
     device_id:req.body.device_id,
@@ -111,13 +113,17 @@ router.post('/collect/query',function(req,res,next){
   Collect.find(postData,function(err,data){
      if(err==null){
        for(var i=0;i<data.length;i++) {
-         var _id = data[i].article_id
+         console.log(data[i].article_id)
+         var _id = mongoose.Types.ObjectId(data[i].article_id)
        Article.find({_id:_id},function(err,data){
          if(err==null){
-           // res.send({
-           //   code:0,
-           //   result:data
-           // })
+           sendData.push(data)
+           if(i==data.length){
+             res.send({
+               code:0,
+               result:sendData
+             })
+           }
          }
          else {
            res.send({
