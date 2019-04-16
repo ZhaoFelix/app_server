@@ -143,6 +143,8 @@ router.post('/collect/query',function(req,res,next){
        })
      }
   })
+  .limit(8)
+  .skip(0)
 })
 
 router.post('/like/disliked',function(req,res,next){
