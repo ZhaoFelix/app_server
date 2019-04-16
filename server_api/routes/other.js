@@ -110,41 +110,69 @@ router.post('/collect/query',function(req,res,next){
     collect:"1"
   }
 
- var sendData = []
-  Collect.find(postData,function(err,data){
-    console.log(postData)
-     if(err==null){
-       for(var i=0;i<data.length;i++) {
-         console.log(data[i].article_id)
-         var _id = mongoose.Types.ObjectId(data[i].article_id)
-       Article.find({_id:_id},function(err,data){
-         if(err==null){
-           sendData.push(data)
-           if(i==data.length){
-             res.send({
-               code:0,
-               result:sendData
-             })
-           }
-         }
-         else {
-           res.send({
-             code:1,
-             error:err
-           })
-         }
-       })
-     }
-     }
-     else{
-       res.send({
-         code:1,
-         error:err
-       })
-     }
-  })
-  .limit(8)
-  .skip(0)
+ // var sendData = []
+ //  Collect.find(postData,function(err,data){
+ //     if(err!=null){
+ //       res.send({
+ //         code:1,
+ //         error:err
+ //       })
+ //     }
+ //     else{
+ //       data.map((item) => {
+ //           var _id = mongoose.Types.ObjectId(item.article_id)
+ //         Article.find({_id:_id},function(err,dt){
+ //           if(err){
+ //             console.log(err)
+ //           }
+ //           else {
+ //             sendData.push(dt[0])
+ //             console.log(sendData)
+ //           }
+ //         })
+ //       })
+ //
+ //       res.send({
+ //         code:0,
+ //         result:sendData
+ //       })
+ //       return
+ //     }
+ //  })
+ //  .limit(8)
+ //  .skip(0)
+
+let result = []; //存放查询结果
+let doc1 = []; //存放第一次查询的结果
+Collect.find(postData).exec().then((doc) => {
+    doc1 = doc;
+    const promises = doc.map(item => Article.findOne({_id:mongoose.Types.ObjectId(item.article_id)}));
+    return Promise.all(promises);
+})
+.then((bankInfoList) => {//promise.all返回的结果是一一对应的
+    for(let i=0; i<doc1.length; i++){
+        let obj = {};
+
+        Object.assign(obj, JSON.parse(JSON.stringify(doc1[i])), JSON.parse(JSON.stringify(bankInfoList[i])));
+        result.push(obj);
+    }
+    return new Promise((resolve, reject) => {
+            resolve(result);
+    })
+})
+.then((result) => {
+    return new Promise(() => {
+        res.json({ code: 0, result: result});
+        return;
+    });
+})
+.catch((e) => {
+    console.log(e);
+    res.json({ code: -1, msg: '查询失败'});
+    return;
+});
+
+
 })
 
 router.post('/like/disliked',function(req,res,next){
