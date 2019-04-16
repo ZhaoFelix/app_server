@@ -9,8 +9,8 @@
             <el-menu-item index="1-1" @click="To('lists')"><i class="el-icon-document"></i>博客列表</el-menu-item>
             <el-menu-item index="1-2" @click="To('add')"><i class="el-icon-edit"></i>添加博客</el-menu-item>
             <el-menu-item index="1-3" @click="To('recommand')"><i class="el-icon-message"></i>首页推荐</el-menu-item>
-            <!-- <el-menu-item index="1-4" @click="To('preview')"><i class="el-icon-view"></i>文章预览</el-menu-item> -->
             <el-menu-item index="1-5" @click="To('tag')"><i class="el-icon-mobile-phone"></i>博客标签</el-menu-item>
+            <el-menu-item index="1-4" @click="To('comment')"><i class="el-icon-news"></i>评论反馈</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

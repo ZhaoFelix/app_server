@@ -59,4 +59,20 @@ router.post("/queryComment",function(req,res,next){
   })
   .limit(8)
 })
+router.get("/queryAll",function(req,res,next){
+  Comment.find({},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
 module.exports = router;

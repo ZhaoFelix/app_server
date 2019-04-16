@@ -6,7 +6,7 @@ import add from '@/components/add_article.vue'
 import preview from '@/components/preview'
 import tag  from '@/components/tag'
 import recommand from '@/components/recommand'
-
+import comment from '@/components/comment'
 Vue.use(Router)
 const router =  new Router({
   routes: [
@@ -42,6 +42,11 @@ const router =  new Router({
       path:'/recommand',
       name:'recommand',
       component:recommand
+    },
+    {
+      path:'/comment',
+      name:'comment',
+      component:comment
     }
   ]
 })
