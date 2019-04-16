@@ -112,10 +112,10 @@ router.post('/collect/query',function(req,res,next){
 
  var sendData = []
   Collect.find(postData,function(err,data){
-    //console.log(postData)
+    console.log(postData)
      if(err==null){
        for(var i=0;i<data.length;i++) {
-        // console.log(data[i].article_id)
+         console.log(data[i].article_id)
          var _id = mongoose.Types.ObjectId(data[i].article_id)
        Article.find({_id:_id},function(err,data){
          if(err==null){
