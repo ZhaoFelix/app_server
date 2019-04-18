@@ -110,37 +110,6 @@ router.post('/collect/query',function(req,res,next){
     collect:"1"
   }
 
- // var sendData = []
- //  Collect.find(postData,function(err,data){
- //     if(err!=null){
- //       res.send({
- //         code:1,
- //         error:err
- //       })
- //     }
- //     else{
- //       data.map((item) => {
- //           var _id = mongoose.Types.ObjectId(item.article_id)
- //         Article.find({_id:_id},function(err,dt){
- //           if(err){
- //             console.log(err)
- //           }
- //           else {
- //             sendData.push(dt[0])
- //             console.log(sendData)
- //           }
- //         })
- //       })
- //
- //       res.send({
- //         code:0,
- //         result:sendData
- //       })
- //       return
- //     }
- //  })
- //  .limit(8)
- //  .skip(0)
 
 let result = []; //存放查询结果
 let doc1 = []; //存放第一次查询的结果
