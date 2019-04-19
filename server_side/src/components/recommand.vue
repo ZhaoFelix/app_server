@@ -12,7 +12,7 @@
             <el-card style="background-coloe:gray">
                <el-row>
                  <el-col :span="24">
-                     <img :src="item.url" alt="" width="100%">
+                     <img :src="item.url" alt="" width="100%" height="200px">
                  </el-col>
                </el-row>
                <el-row>

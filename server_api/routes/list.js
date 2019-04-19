@@ -168,4 +168,29 @@ router.post('/publish',function(req,res,next){
     }
   })
 })
+//文章关键字查询
+router.get('/search/',function(req,res,next){
+  var keyword = req.body.kw;
+  Article.find({
+    $or:[
+      //多条件数组
+      {title:{$regex:keyword}},
+      {content:{$regex:keyword}}
+    ]
+  },function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
+
 module.exports = router;
