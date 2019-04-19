@@ -152,7 +152,7 @@ export default {
   },
   created:function(){
       const _this = this;
-      this.$axios.get('http://www.bedeveloper.cn:3000/recommand/query')
+      this.$axios.get('http://www.bedeveloper.cn:3000/recommand/query/pc')
       .then(function(response){
         var re = response.data;
         if(re.code==0){

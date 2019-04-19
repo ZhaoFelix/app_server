@@ -69,5 +69,20 @@ router.get('/query',function(req,res,next){
     }
   })
 })
-
+router.get('/query/pc',function(req,res,next){
+  Recommand.find({isDeleted:"0"},function(err,data){
+    if(err==null){
+      res.send({
+        code:0,
+        result:data
+      })
+    }
+    else {
+      res.send({
+        code:1,
+        error:err
+      })
+    }
+  })
+})
 module.exports = router;
