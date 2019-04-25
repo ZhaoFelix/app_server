@@ -169,13 +169,14 @@ router.post('/publish',function(req,res,next){
   })
 })
 //文章关键字查询
-router.get('/search/',function(req,res,next){
+router.post('/search/',function(req,res,next){
   var keyword = req.body.kw;
   Article.find({
     $or:[
       //多条件数组
       {title:{$regex:keyword}},
-      {content:{$regex:keyword}}
+      {content:{$regex:keyword}},
+      {preview:{$regex:keyword}}
     ]
   },function(err,data){
     if(err==null){
