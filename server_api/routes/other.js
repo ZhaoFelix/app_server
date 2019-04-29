@@ -115,7 +115,7 @@ let result = []; //存放查询结果
 let doc1 = []; //存放第一次查询的结果
 Collect.find(postData).exec().then((doc) => {
     doc1 = doc;
-    const promises = doc.map(item => Article.findOne({_id:mongoose.Types.ObjectId(item.article_id)}));
+    const promises = doc.map(item => Article.findOne({_id:mongoose.Types.ObjectId(item.article_id)}).distinct("title"));
     return Promise.all(promises);
 })
 .then((bankInfoList) => {//promise.all返回的结果是一一对应的

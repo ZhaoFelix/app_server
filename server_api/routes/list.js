@@ -175,7 +175,7 @@ router.post('/search/',function(req,res,next){
     $or:[
       //多条件数组
       {title:{$regex:keyword}},
-      {content:{$regex:keyword}},
+    //  {content:{$regex:keyword}},
       {preview:{$regex:keyword}}
     ]
   },function(err,data){
