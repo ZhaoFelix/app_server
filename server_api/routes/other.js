@@ -123,7 +123,8 @@ Collect.find(postData).exec().then((doc) => {
         let obj = {};
 
         Object.assign(obj, JSON.parse(JSON.stringify(doc1[i])), JSON.parse(JSON.stringify(bankInfoList[i])));
-        const re = result.find(oj => oj.title=obj.title)
+        const re = result.find(oj => oj.title===obj.title)
+        console.log(re);
        if(re==undefined){
          result.push(obj);
        }
