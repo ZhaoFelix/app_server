@@ -115,7 +115,7 @@ let result = []; //存放查询结果
 let doc1 = []; //存放第一次查询的结果
 Collect.find(postData).exec().then((doc) => {
     doc1 = doc;
-    const promises = doc.map(item => Article.findOne({_id:mongoose.Types.ObjectId(item.article_id)}).distinct("title"));
+    const promises = doc.map(item => Article.findOne({_id:mongoose.Types.ObjectId(item.article_id)}));
     return Promise.all(promises);
 })
 .then((bankInfoList) => {//promise.all返回的结果是一一对应的
@@ -123,7 +123,10 @@ Collect.find(postData).exec().then((doc) => {
         let obj = {};
 
         Object.assign(obj, JSON.parse(JSON.stringify(doc1[i])), JSON.parse(JSON.stringify(bankInfoList[i])));
-        result.push(obj);
+        const re = result.find(oj => oj.title=obj.title)
+       if(re==undefined){
+         result.push(obj);
+       }
     }
     return new Promise((resolve, reject) => {
             resolve(result);
