@@ -8,7 +8,7 @@
         :ishljs="true"
         :scrollStyle="false"
         :subfield = "false"
-        codeStyle="vs"
+        codeStyle="atom-one-dark"
         :toolbarsFlag="false"
         />
      </el-row>
@@ -60,6 +60,6 @@ export default {
   padding: 6px 10px;
 }
 #app .markdown-body pre {
-  padding: 4px;
+  padding: 2px;
 }
 </style>
