@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "element-ui": "^2.4.11",
     "marked": "^0.6.0",
     "mavon-editor": "^2.6.17",
     "qs": "^6.6.0",
@@ -32,6 +31,7 @@
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "element-ui": "^2.9.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
